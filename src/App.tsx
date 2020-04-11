@@ -1,6 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+
+import Routes from '~/routes';
 
 export default function App(): React.FC {
-  return <View />;
+  const isSigned = false;
+
+  return <Routes isSigned={isSigned} />;
 }
