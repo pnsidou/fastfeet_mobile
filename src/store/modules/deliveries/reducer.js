@@ -9,6 +9,15 @@ export default function deliveries(state = INITIAL_STATE, action) {
         draft.list = action.payload;
         break;
       }
+      case '@problems/LIST_SUCCESS': {
+        const { deliveryId, problems } = action.payload;
+        const deliveriesList = state.list;
+        draft.list = deliveriesList.map((delivery) =>
+          delivery.id === deliveryId ? { ...delivery, problems } : delivery
+        );
+        break;
+      }
+
       default:
         draft = state;
         break;
