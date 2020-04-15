@@ -27,7 +27,11 @@ const Dashboard: React.FC<Props> = () => {
         ),
       }}
     >
-      <Stack.Screen name="Deliveries" component={Deliveries} />
+      <Stack.Screen
+        name="Deliveries"
+        component={Deliveries}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="DeliveryInfo" component={DeliveryInfo} />
       <Stack.Screen name="RegisterProblem" component={RegisterProblem} />
       <Stack.Screen name="ViewProblems" component={ViewProblems} />
