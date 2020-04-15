@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,14 +20,32 @@ const Routes: React.FC<props> = ({ isSigned }) => {
   if (!isSigned)
     return (
       <Stack.Navigator>
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     );
 
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Dasboard" component={Dashboard} />
+      <Tab.Screen
+        name="Deliveries"
+        component={Dashboard}
+        options={{
+          tabBarIcon: () => <Icon name="reorder" size={20} color="#666" />,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: () => (
+            <Icon name="account-circle" size={20} color="#666" />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
