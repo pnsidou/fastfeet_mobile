@@ -32,10 +32,26 @@ const Dashboard: React.FC<Props> = () => {
         component={Deliveries}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="DeliveryInfo" component={DeliveryInfo} />
-      <Stack.Screen name="RegisterProblem" component={RegisterProblem} />
-      <Stack.Screen name="ViewProblems" component={ViewProblems} />
-      <Stack.Screen name="ConfirmDelivery" component={ConfirmDelivery} />
+      <Stack.Screen
+        name="DeliveryInfo"
+        component={DeliveryInfo}
+        options={{ headerTitle: 'Delivery details' }}
+      />
+      <Stack.Screen
+        name="RegisterProblem"
+        component={RegisterProblem}
+        options={{ headerTitle: 'Register problem' }}
+      />
+      <Stack.Screen
+        name="ViewProblems"
+        component={ViewProblems}
+        options={{ headerTitle: 'Problems' }}
+      />
+      <Stack.Screen
+        name="ConfirmDelivery"
+        component={ConfirmDelivery}
+        options={{ headerTitle: 'Confirm delivery' }}
+      />
     </Stack.Navigator>
   );
 };
