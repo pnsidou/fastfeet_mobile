@@ -17,7 +17,7 @@ const SignIn: React.FC<Props> = () => {
   const loading = useSelector((state) => state.auth.loading);
 
   function handleSubmit() {
-    dispatch(signInRequest(new Number(deliverymanId)));
+    dispatch(signInRequest(Number(deliverymanId)));
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useSelector, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { RouteProp, NavigationProp } from '@react-navigation/native';
@@ -23,7 +23,7 @@ const RegisterProblem: React.FC<Props> = ({ route, navigation }) => {
   const handleSubmit = useCallback(() => {
     dispatch(registerProblem(deliveryId, description));
     navigation.goBack();
-  }, [deliveryId, description, navigation]);
+  }, [dispatch, deliveryId, description, navigation]);
 
   return (
     <Background>

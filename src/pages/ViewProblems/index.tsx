@@ -4,7 +4,7 @@ import { parseISO, format } from 'date-fns';
 
 import { RouteProp, NavigationProp } from '@react-navigation/native';
 
-import { listProblemsRequest } from '~/store/modules/problems/actions';
+import { listProblems } from '~/store/modules/problems/actions';
 
 import {
   Subtitle,
@@ -24,20 +24,19 @@ export interface Props {
 const ViewProblems: React.FC<Props> = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { deliveryId } = route.params;
-  const delivery = useSelector((state) =>
-    state.deliveries.list.find((item) => item.id === deliveryId)
+  const problems = useSelector(
+    (state) => state.problems.mapFromDeliveries[deliveryId]
   );
 
   useEffect(() => {
-    dispatch(listProblemsRequest(deliveryId));
+    dispatch(listProblems(deliveryId));
   }, [dispatch, deliveryId]);
 
-  console.tron.log('view problems', delivery);
   return (
     <Background>
       <Subtitle>Delivery {deliveryId}</Subtitle>
       <StyledList
-        data={delivery.problems}
+        data={problems}
         renderItem={({ item }) => (
           <ProblemBox>
             <StyledDescription>{item.description}</StyledDescription>

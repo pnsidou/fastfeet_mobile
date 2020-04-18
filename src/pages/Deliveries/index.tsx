@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { StatusBar, FlatList } from 'react-native';
+import { StatusBar, FlatList, ActivityIndicator } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { signOut } from '~/store/modules/auth/actions';
 import { listDeliveries } from '~/store/modules/deliveries/actions';
+import { listDelivered } from '~/store/modules/delivered/actions';
 
 import Avatar from '~/components/Avatar';
 import Delivery from '~/components/Delivery';
@@ -30,6 +31,9 @@ export interface Props {}
 
 const Deliveries: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
+  const deliveriesUpdated = useSelector((state) => state.deliveries.updated);
+  const deliveredUpdated = useSelector((state) => state.delivered.updated);
+
   const user = useSelector((state) => state.user.profile);
   const deliveries = useSelector((state) =>
     state.deliveries.list.map((delivery) => {
@@ -42,11 +46,27 @@ const Deliveries: React.FC<Props> = ({ navigation }) => {
       };
     })
   );
+  const delivered = useSelector((state) =>
+    state.delivered.list.map((delivery) => {
+      return {
+        ...delivery,
+        goToDeliveryInfo: () =>
+          navigation.navigate('DeliveryInfo', {
+            deliveryId: delivery.id,
+          }),
+      };
+    })
+  );
+
   const [onlyDelivered, setOnlyDelivered] = useState(false);
 
   useEffect(() => {
-    dispatch(listDeliveries(user.id, onlyDelivered));
-  }, [dispatch, onlyDelivered, user]);
+    if (!deliveriesUpdated) dispatch(listDeliveries(user.id));
+  }, [dispatch, deliveriesUpdated, user]);
+
+  useEffect(() => {
+    if (!deliveredUpdated) dispatch(listDelivered(user.id));
+  }, [dispatch, deliveredUpdated, user]);
 
   return (
     <Container>
@@ -74,11 +94,26 @@ const Deliveries: React.FC<Props> = ({ navigation }) => {
           </OptionsButton>
         </Options>
       </SubHeader>
-      <FlatList
-        data={deliveries}
-        renderItem={Delivery}
-        keyExtractor={(item) => item.id}
-      />
+      {!onlyDelivered &&
+        (!deliveriesUpdated ? (
+          <ActivityIndicator style={{ flex: 1 }} />
+        ) : (
+          <FlatList
+            data={deliveries}
+            renderItem={Delivery}
+            keyExtractor={(item) => item.id}
+          />
+        ))}
+      {onlyDelivered &&
+        (!deliveredUpdated ? (
+          <ActivityIndicator style={{ flex: 1 }} />
+        ) : (
+          <FlatList
+            data={delivered}
+            renderItem={Delivery}
+            keyExtractor={(item) => item.id}
+          />
+        ))}
     </Container>
   );
 };

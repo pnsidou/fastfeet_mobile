@@ -1,4 +1,4 @@
-export function listProblemsRequest(deliveryId) {
+export function listProblems(deliveryId) {
   return {
     type: '@problems/LIST_REQUEST',
     payload: { deliveryId },
@@ -25,9 +25,10 @@ export function registerProblem(deliveryId, description) {
   };
 }
 
-export function registerProblemSuccess() {
+export function registerProblemSuccess(deliveryId) {
   return {
     type: '@problems/REGISTER_SUCCESS',
+    payload: { deliveryId },
   };
 }
 

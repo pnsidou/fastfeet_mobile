@@ -1,7 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import {
-  listProblemsRequest,
   listProblemsSuccess,
   listProblemsFailure,
   registerProblemSuccess,
@@ -25,8 +24,7 @@ export function* registerProblem({ payload }) {
   try {
     const { deliveryId, description } = payload;
     yield call(api.post, `/delivery/${deliveryId}/problems`, { description });
-    yield put(registerProblemSuccess());
-    yield put(listProblemsRequest(deliveryId));
+    yield put(registerProblemSuccess(deliveryId));
   } catch (err) {
     yield put(registerProblemFailure());
   }
