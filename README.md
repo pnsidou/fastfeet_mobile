@@ -2,8 +2,8 @@
 
 This repository contains the mobile interface of Fastfeet, a fake transport app. Its web interface and backend can be found
 at:
--[web](https://github.com/pnsidou/fastfeet_web)
--[backend](https://github.com/pnsidou/fastfeet_backend)
+- [web](https://github.com/pnsidou/fastfeet_web)
+- [backend](https://github.com/pnsidou/fastfeet_backend)
 
 This project was made using react-native and it can be run in android and ios platforms. Despite that, it was only
 tested on android. 
